@@ -1,1 +1,1 @@
-Inicio de la programación orientada a objetos.
+Aprendiendo los lenguajes python y C#.
