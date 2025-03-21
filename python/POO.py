@@ -55,5 +55,6 @@ mi_enemigo = Personaje("Delas", 40, 1, 2, 10)
 print(mi_personaje.vida)
 
 mi_personaje.atacar(mi_enemigo)
+######
 
  
