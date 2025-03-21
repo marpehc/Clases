@@ -18,7 +18,7 @@ def agregarlista():
 #Imprime lista_perros en bruto y lo separa con "" y ,
         print("\nLista de perros y sus edades: ")
         for i in range(len(Lista_Años_Perro)):
-                print(f"{Lista_Perros} - {Lista_Años_Perro[i]} años")
+                print(f"{Lista_Perros[i]} - {Lista_Años_Perro[i]} años")
         inicio()
     
 
@@ -69,7 +69,9 @@ def inicio():
             
             elif iniciorespuesta == 4:
                 print("Saliendo del programa... ")
+                quit()
                 break
+            
         
         except ValueError:
             print("Ingresa una respuesta válida. ")
