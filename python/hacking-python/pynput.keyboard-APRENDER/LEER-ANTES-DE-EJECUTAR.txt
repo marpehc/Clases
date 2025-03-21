@@ -1,0 +1,3 @@
+Para ejecutar estos programas utilizo la versión
+3.11.3 de python ya que su compatibilidad es casi
+infinita. 
