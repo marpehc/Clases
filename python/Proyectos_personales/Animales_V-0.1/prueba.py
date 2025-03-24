@@ -1,0 +1,2 @@
+residencias = {}
+print(len(residencias))
