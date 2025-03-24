@@ -355,7 +355,7 @@ a, b, c = x				# now a is 'pig', b is 'cow', c is 'horse'
 # constructors – creating a new list
 x = list((1, 2, 3))		# note double parens
 x = ['a', 25, 'dog', 8.43]
-x = list(tuple1)
+x = list(tuple1) # type: ignore
 
 # list creation using comprehensions
 x = [m for m in range(8)]
