@@ -7,7 +7,7 @@ residencias = {}
 
 
 def crear_residencia():
-    ag_residencia = input("¿Cómo se llama la residencia en la que esta el perro que quieres agregar? (en el caso de no haber se creará una automáticamente.): ").strip().lower()
+    ag_residencia = input("¿Cómo se llama la residencia en la que esta el perro que quieres agregar? (en el caso de no haber se creará una automáticamente): ").strip().lower()
     perro = input("Ingrese el nombre del perro: ")
     
     
@@ -19,7 +19,7 @@ def crear_residencia():
     else:
         residencias[ag_residencia] = perro ### Se agrega una residencia + el perro. 
         print("Residencia y perro agregados!")
-        print('Volviendo al Menú de opciones...')
+        print('\nVolviendo al Menú de opciones...')
 
         time.sleep(3)
         os.system('cls')
@@ -40,7 +40,7 @@ def Main():
         try:
             iniciorespuesta = int(input("Qué desea hacer?: ").strip())
             if iniciorespuesta == 1:
-                crear_residencia() # type: ignore
+                crear_residencia() 
         
             elif iniciorespuesta == 2:
                 for res, perros in residencias:
