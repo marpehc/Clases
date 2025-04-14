@@ -1,2 +1,0 @@
-residencias = {}
-print(len(residencias))

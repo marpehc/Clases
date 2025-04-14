@@ -1,0 +1,29 @@
+CARACTERÍSTICAS DE LOS ANIMALES A AGREGAR-> TIPO DE ANIMAL (perro, gato, caballo...), -  NOMBRE (Padre? Madre? Puede ser interesante)         
+                                            PESO (kg, ¿También lb, quizás?), -  ¿ENFERMEDADES? [quizás es demasiado]
+                                            
+
+
+
+
+
+Idea principal:
+   1. El usuario debe de indicar la "residencia" de los animales en cuestión. 
+        Elegir residencia ----- Crear residencia
+
+
+
+   2. Después de elegir el lugar donde se ubican los animales tiene que elegir la opción que quiere ejecutar.
+        OPCIONES: 
+                2.1: Menú
+                2.2: Agregar un animal a la lista
+                2.3: Ver la cantidad de animales en la lista
+                2.4: Salir
+                
+                
+                
+                
+                
+                
+
+
+
