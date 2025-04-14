@@ -11,7 +11,7 @@ class Cajero:
     
     def Consultar_saldo(self, tiempo):
         
-        print(f"{tiempo} \n Saldo actual: {self.saldo}")
+        print(f"{tiempo} \nSaldo actual:{self.saldo}")
     
         
     def depositar(self, cantidad):
@@ -27,7 +27,7 @@ class Cajero:
         if cantidad <= self.saldo:
             self.saldo -= cantidad
             print(f"\nDinero retirado: {cantidad}. Saldo restante: {self.saldo}")
-            with open("Cuentas.txt", "a") as file:
+            with open("Cuentas.txt", "a", encoding="utf-8") as file:
                 fecha = time.strftime("%D-%M-%Y %H:%M:%S", time.localtime())
                 file.write(f"Retirada de dinero. Cantidad: {cantidad} | Saldo restante: {self.saldo}. A día {fecha}\n")
         else:
