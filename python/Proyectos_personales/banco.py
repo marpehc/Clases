@@ -6,6 +6,15 @@ class Cajero:
         self.saldo = saldo_inicial
         self.historial = []
         
+        # Cargar historial desde Cuentas.txt si existe
+        try:
+            with open("Cuentas.txt", "r", encoding="utf-8") as file:
+                for linea in file:
+                    self.historial.append(linea.strip())
+        except FileNotFoundError:
+            # Si el archivo no existe, continuar con historial vacío
+            pass
+        
         
         
     
@@ -20,6 +29,8 @@ class Cajero:
             fecha = time.strftime("%d/%m/%Y %H:%M:%S", time.localtime())
             self.historial.append(f"Depósito: {cantidad} | Saldo: {self.saldo} | Fecha: {fecha}")
             print(f"Depósito exitoso. Saldo actual: {self.saldo}")
+            with open("Cuentas.txt", "a", encoding="utf-8") as file:
+                file.write(f"Depósito de dinero. Cantidad: {cantidad} | Saldo actual: {self.saldo}. A día {fecha}\n")
         else:
             print("El valor que introduces no puede ser negativo!")
             
