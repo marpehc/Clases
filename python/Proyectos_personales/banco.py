@@ -17,23 +17,32 @@ class Cajero:
     def depositar(self, cantidad):
         if cantidad > 0:
             self.saldo += cantidad
-            print(self.saldo)
+            fecha = time.strftime("%d/%m/%Y %H:%M:%S", time.localtime())
+            self.historial.append(f"Depósito: {cantidad} | Saldo: {self.saldo} | Fecha: {fecha}")
+            print(f"Depósito exitoso. Saldo actual: {self.saldo}")
         else:
             print("El valor que introduces no puede ser negativo!")
             
     
     def retirar(self, cantidad):
-        self.saldo += 100
         if cantidad <= self.saldo:
             self.saldo -= cantidad
+            fecha = time.strftime("%d/%m/%Y %H:%M:%S", time.localtime())
+            self.historial.append(f"Retiro: {cantidad} | Saldo: {self.saldo} | Fecha: {fecha}")
             print(f"\nDinero retirado: {cantidad}. Saldo restante: {self.saldo}")
             with open("Cuentas.txt", "a", encoding="utf-8") as file:
-                fecha = time.strftime("%D-%M-%Y %H:%M:%S", time.localtime())
                 file.write(f"Retirada de dinero. Cantidad: {cantidad} | Saldo restante: {self.saldo}. A día {fecha}\n")
         else:
             print("No tienes saldo suficiente para hacer el retiro.")
             
-                
+    def mostrar_historial(self):
+        if not self.historial:
+            print("No hay transacciones en el historial.")
+        else:
+            print("\n--- Historial de transacciones ---")
+            for transaccion in self.historial:
+                print(transaccion)
+            
 def menu():
     cajero = Cajero()
 
