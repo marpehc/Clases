@@ -5,6 +5,14 @@ from tarjetas import tarjetas_disponibles
 
 INTENTOS_MAXIMOS = 3
 
+def clear_console():
+  """Clears the console screen, compatible with Windows, Linux, and macOS."""
+  system_name = platform.system()
+  if system_name == "Windows":
+    os.system('cls')
+  else: # Assuming Linux or macOS
+    os.system('clear')
+
 
 
 
@@ -35,7 +43,7 @@ def verificar_pin(tarjeta):
                     print(".", end="", flush=True)
                     time.sleep(1)
                     
-                os.system("cls")
+                clear_console()
         except ValueError:
             print("Introduce un número válido.")
     print("Demasiados intentos. Acceso denegado.")
