@@ -1,16 +1,22 @@
 import time
+import platform
 import os
-PIN_CORRECTO = 7123
+from tarjetas import tarjetas_disponibles
+
 INTENTOS_MAXIMOS = 3
 
 
-def verificar_pin():
+
+
+
+
+def verificar_pin(tarjeta):
     intentos, penalizacion = 0, 0
     
     while intentos < INTENTOS_MAXIMOS:
         try:
             res_pin = int(input("Introduce el PIN: "))
-            if res_pin == PIN_CORRECTO:
+            if res_pin == int(tarjeta.pin):
                 print("PIN correcto. ¡Bienvenido!")
                 return True
             else:
@@ -33,13 +39,20 @@ def verificar_pin():
         except ValueError:
             print("Introduce un número válido.")
     print("Demasiados intentos. Acceso denegado.")
-    
+    print("vuelve a intentarlo dentro de 10 minutos...")
+    time.sleep(600)
     return False
 
 
+    
+    
+    
+    
+    
+
 class Cajero:
-    def __init__(self, saldo_inicial=0):
-        self.saldo = saldo_inicial
+    def __init__(self, saldo=0):
+        self.saldo = saldo
         self.historial = []
 
         # Cargar historial desde Cuentas.txt si existe
@@ -50,7 +63,17 @@ class Cajero:
         except FileNotFoundError:
             # Si el archivo no existe, continuar con historial vacío
             pass
-
+    
+    def clear_console():
+        """Clears the console screen, compatible with Windows, Linux, and macOS."""
+        system_name = platform.system()
+        if system_name == "Windows":
+            os.system('cls')
+        else: # Assuming Linux or macOS
+            os.system('clear')
+ 
+    
+    
     def Consultar_saldo(self, tiempo):
         print(f"\n{tiempo} \nSaldo actual: {self.saldo}")
 
@@ -86,8 +109,8 @@ class Cajero:
                 print(transaccion)
 
 
-def menu():
-    cajero = Cajero()
+def menu(cajero, tarjeta):
+    
 
     while True:
         print("\n--- Cajero automático ---")
@@ -118,11 +141,39 @@ def menu():
             cajero.mostrar_historial()
         elif opcion == "5":
             print("Gracias por usar el cajero. ¡Hasta luego!")
+            tarjeta.saldo = cajero.saldo
             break
+        elif opcion == "6":
+            cambiar_tarjeta()
         else:
             print("Opción no válida. Intenta de nuevo.")
 
 
+
+
+def seleccionar_tarjeta():
+    while True:
+        try:
+            numero = input("Introduce el número de la tarjeta: ")
+            cvv = input("Introduce el CVV: ")
+            for tarjeta in tarjetas_disponibles:
+                if tarjeta.numero == numero and tarjeta.cvv == cvv and tarjeta.pin:
+                    print("✅Tarjeta seleccionada. Accediendo al cajero...")
+                    return tarjeta
+            return print("❌ Tarjeta no encontrada o datos incorrectos.")
+        except ValueError:
+            print("Introduce un número válido.")
+
+
+def cambiar_tarjeta():
+    tarjeta_actual = seleccionar_tarjeta()
+
+
+
+
+
 if __name__ == "__main__":
-    if verificar_pin():
-        menu()
+    tarjeta_actual = seleccionar_tarjeta()
+    if tarjeta_actual and verificar_pin(tarjeta_actual):
+        cajero = Cajero(tarjeta_actual.saldo)
+        menu(cajero, tarjeta_actual)
