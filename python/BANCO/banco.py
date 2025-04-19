@@ -1,8 +1,7 @@
 import time
 import platform
 import os
-from tarjetas import tarjetas_disponibles
-
+from tarjetas import tarjetas_disponibles, añadir_tarjeta, eliminar_tarjeta
 INTENTOS_MAXIMOS = 3
 
 def clear_console():
@@ -56,7 +55,7 @@ def verificar_pin(tarjeta):
     
     
     
-    
+
 
 class Cajero:
     def __init__(self, saldo=0):
@@ -126,8 +125,10 @@ def menu(cajero, tarjeta):
         print("2. Depositar dinero")
         print("3. Retirar dinero")
         print("4. Ver historial de transacciones")
-        print("5. Salir")
-
+        print("5. Cambiar tarjeta")
+        print("6. Añadir tarjeta")
+        print("7. Eliminar tarjeta")
+        print("8. Salir")
         opcion = input("Selecciona una opción: ")
 
         if opcion == "1":
@@ -148,16 +149,31 @@ def menu(cajero, tarjeta):
         elif opcion == "4":
             cajero.mostrar_historial()
         elif opcion == "5":
+            nueva_tarjeta = cambiar_tarjeta()
+            if nueva_tarjeta:
+                tarjeta = nueva_tarjeta
+                cajero = Cajero(tarjeta.saldo)
+        elif opcion == "6":
+            nueva_tarjeta = añadir_tarjeta()
+            if nueva_tarjeta and verificar_pin(nueva_tarjeta):
+                tarjeta = nueva_tarjeta
+                cajero = Cajero(tarjeta.saldo)
+             
+        elif opcion == "7":
+            tarjeta_eliminar = eliminar_tarjeta()
+            if tarjeta_eliminar:
+                tarjeta = tarjeta_eliminar
+                cajero = Cajero(tarjeta.saldo)
+         
+                     
+        elif opcion == "8":
             print("Gracias por usar el cajero. ¡Hasta luego!")
             tarjeta.saldo = cajero.saldo
             break
-        elif opcion == "6":
-            cambiar_tarjeta()
+
+
         else:
             print("Opción no válida. Intenta de nuevo.")
-
-
-
 
 def seleccionar_tarjeta():
     while True:
@@ -168,7 +184,8 @@ def seleccionar_tarjeta():
                 if tarjeta.numero == numero and tarjeta.cvv == cvv and tarjeta.pin:
                     print("✅Tarjeta seleccionada. Accediendo al cajero...")
                     return tarjeta
-            return print("❌ Tarjeta no encontrada o datos incorrectos.")
+            print("❌ Tarjeta no encontrada o datos incorrectos.")
+            return None
         except ValueError:
             print("Introduce un número válido.")
 
