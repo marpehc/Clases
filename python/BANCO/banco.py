@@ -159,10 +159,19 @@ def menu(cajero, tarjeta):
                 cajero = Cajero(tarjeta.saldo)
         
         elif opcion == "6":
+            #AÑADE LA NUEVA TARJETA A TARJETAS_DISPONIBLES. Agrega la acción a Cuentas.txt
+            
             nueva_tarjeta = añadir_tarjeta()
+            fecha = time.strftime("%d/%m/%Y %H:%M:%S", time.localtime())
             if nueva_tarjeta and verificar_pin(nueva_tarjeta):
-                tarjeta = nueva_tarjeta
-                cajero = Cajero(tarjeta.saldo)
+                
+                with open("Cuentas.txt", "a", encoding="utf-8") as file:
+                    file.write(f"Tarjeta {tarjeta.numero} añadida correctamente. | Fecha: {fecha}\n") 
+                
+            cajero.historial.append(f"Tarjeta {tarjeta.numero} Añadida correctamente. | Fecha: {fecha}")
+            
+            tarjeta = nueva_tarjeta
+            cajero = Cajero(tarjeta.saldo)
              
         elif opcion == "7":
             
@@ -217,3 +226,7 @@ if __name__ == "__main__":
     if tarjeta_actual and verificar_pin(tarjeta_actual):
         cajero = Cajero(tarjeta_actual.saldo)
         menu(cajero, tarjeta_actual)
+
+
+
+#1234-5678-9123-4567 COPIAR
