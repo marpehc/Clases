@@ -1,3 +1,1 @@
-Depósito de dinero. Cantidad: 100.0 | Saldo actual: 100.0. A día 17/04/2025 23:14:20
-Retirada de dinero. Cantidad: 100.0 | Saldo restante: 0.0. A día 17/04/2025 23:15:31
-Depósito de dinero. Cantidad: 123.0 | Saldo actual: 1123.0. A día 18/04/2025 20:37:38
+

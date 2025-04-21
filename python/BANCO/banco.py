@@ -68,8 +68,8 @@ class Cajero:
                 for linea in file:
                     self.historial.append(linea.strip())
         except FileNotFoundError:
-            # Si el archivo no existe, continuar con historial vacío
-            pass
+            with open("Cuentas.txt", "w", encoding="utf-8") as file:
+                pass
     
     def clear_console():
         """Clears the console screen, compatible with Windows, Linux, and macOS."""
@@ -116,7 +116,7 @@ class Cajero:
                 print(transaccion)
 
 
-def menu(cajero, tarjeta):
+def menu(cajero, tarjeta): 
     
 
     while True:
@@ -134,25 +134,30 @@ def menu(cajero, tarjeta):
         if opcion == "1":
             fecha = time.strftime("%d/%m/%Y %H:%M:%S", time.localtime())
             cajero.Consultar_saldo(fecha)
+        
         elif opcion == "2":
             try:
                 monto = float(input("Ingrese el monto a depositar: "))
                 cajero.depositar(monto)
             except ValueError:
                 print("Por favor, ingresa un número válido.")
+        
         elif opcion == "3":
             try:
                 monto = float(input("Ingrese el monto a retirar: "))
                 cajero.retirar(monto)
             except ValueError:
                 print("Por favor, ingresa un número válido.")
+        
         elif opcion == "4":
             cajero.mostrar_historial()
+        
         elif opcion == "5":
             nueva_tarjeta = cambiar_tarjeta()
             if nueva_tarjeta:
                 tarjeta = nueva_tarjeta
                 cajero = Cajero(tarjeta.saldo)
+        
         elif opcion == "6":
             nueva_tarjeta = añadir_tarjeta()
             if nueva_tarjeta and verificar_pin(nueva_tarjeta):
@@ -160,11 +165,20 @@ def menu(cajero, tarjeta):
                 cajero = Cajero(tarjeta.saldo)
              
         elif opcion == "7":
+            
+            #ELIMINA LA TARJETA Y ESCRIBE LA ACCIÓN EN CUENTAS.TXT
             tarjeta_eliminar = eliminar_tarjeta()
+            fecha = time.strftime("%d/%m/%Y %H:%M:%S", time.localtime())
+            with open("Cuentas.txt", "a", encoding="utf-8") as file:
+               file.write(f"Tarjeta {tarjeta_eliminar.numero} eliminada correctamente. | Fecha: {fecha}\n") 
+            
+            cajero.historial.append(f"Tarjeta {tarjeta_eliminar.numero} eliminada correctamente. | Fecha: {fecha}")
+            
+               
+            
             if tarjeta_eliminar:
                 tarjeta = tarjeta_eliminar
-                cajero = Cajero(tarjeta.saldo)
-         
+                cajero = Cajero(tarjeta.saldo) 
                      
         elif opcion == "8":
             print("Gracias por usar el cajero. ¡Hasta luego!")
@@ -186,6 +200,7 @@ def seleccionar_tarjeta():
                     return tarjeta
             print("❌ Tarjeta no encontrada o datos incorrectos.")
             return None
+            
         except ValueError:
             print("Introduce un número válido.")
 

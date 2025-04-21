@@ -27,12 +27,13 @@ def añadir_tarjeta():
     
     
 def eliminar_tarjeta():
-    numero = input("Introduce el número de la tarjeta a añadir: ")
+    numero = input("Introduce el número de la tarjeta a borrar: ")
     for tarjeta_eliminar in tarjetas_disponibles:
         tarjetas_disponibles.remove(tarjeta_eliminar)
+        
         print("Tarjeta eliminada correctamente.")
-        return
+        return tarjeta_eliminar
+
     print("La tarjeta no se encuentra en la lista.")
     return None 
-        
         
